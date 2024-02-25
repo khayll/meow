@@ -1,0 +1,56 @@
+{
+  "name": "downloadhistory",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/downloadhistory/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/downloadhistory",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "apps/downloadhistory/src/main.ts",
+        "tsConfig": "apps/downloadhistory/tsconfig.app.json",
+        "assets": ["apps/downloadhistory/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "downloadhistory:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "downloadhistory:build:development"
+        },
+        "production": {
+          "buildTarget": "downloadhistory:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
